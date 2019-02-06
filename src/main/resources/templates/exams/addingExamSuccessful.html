@@ -1,0 +1,17 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{main}">
+
+<head>
+	<title>Dodano Egzamin</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+	<h1 th:text="${'Dodano egzamin '+ examTitle + ' próg zaliczenia wynosi ' + threshold+'%'}"></h1>
+	<br>
+	<br>
+	<a href="/showAllExams" class="btn btn-outline-dark" role="button" aria-pressed="true">Przypisz pytania</a>
+</div>
+</body>
+
+</html>

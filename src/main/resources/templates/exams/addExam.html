@@ -1,0 +1,45 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{main}">
+
+<head>
+	<title>Dodaj Egzamin</title>
+</head>
+
+<body>
+
+<div layout:fragment="content">
+	<div class="container">
+		<h2>Dodawanie Egzaminu</h2>
+		<form action="/" th:action="@{/addExam}" th:object="${examCreator}" method="post">
+			<div class="form-group">
+				<label for="examTitle">Tytuł egzaminu</label>
+				<input type="text" class="form-control" id="examTitle" placeholder="Tytuł egzaminu" name="examTitle" th:field="*{examTitle}" />
+				<p th:if="${#fields.hasErrors('examTitle')}" th:errors="*{examTitle}"></p>
+			</div>
+			<div class="form-group">
+				<label for="threshold">Próg zaliczenia</label>
+				<input type="text" class="form-control" id="threshold" placeholder="próg zaliczenia 1-100" name="threshold" th:field="*{threshold}">
+				<p th:if="${#fields.hasErrors('threshold')}" th:errors="*{threshold}"></p>
+			</div>
+			<div class="form-group">
+				<label for="threshold">Czas trwania</label>
+				<input type="text" class="form-control" id="threshold" placeholder="Czas trwania musi mieścić się w przedziale 1 a 999" name="threshold" th:field="*{durationInMinutes}">
+				<p th:if="${#fields.hasErrors('durationInMinutes')}" th:errors="*{durationInMinutes}"></p>
+			</div>
+			<div class="custom-control custom-toggle my-2">
+				<input type="checkbox" class="custom-control-input" id="customCheck1" th:name="showPoints" th:checked="*{showPoints}">
+				<label class="custom-control-label" for="customCheck1"><span class="label-text"
+				                                                             th:text="${'Pokaż ilosć punktów widocznych przy każdym pytaniu'}"></span></label>
+			</div>
+			<div class="custom-control custom-toggle my-2">
+				<input type="checkbox" class="custom-control-input" id="timeLimit" th:name="hasTimeLimit" th:checked="*{hasTimeLimit}">
+				<label class="custom-control-label" for="timeLimit"><span class="label-text"
+				                                                          th:text="${'Ogranicza czas na zdanie egzaminu'}"></span></label>
+			</div>
+			<button type="submit" class="btn btn-outline-dark">Dodaj Egzamin</button>
+		</form>
+	</div>
+</div>
+</body>
+
+</html>

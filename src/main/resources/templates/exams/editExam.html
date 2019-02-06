@@ -1,0 +1,48 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{main}">
+
+<head>
+	<title>Edycja egzaminu</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+	<h3 th:text="${'Edytujesz egzamin: '  + examCreator.getExamTitle()}"></h3>
+	<form th:action="@{'/editExam/'+${examCreator.getId()}}" th:object="${examCreator}" method="post">
+		<div class="form-group">
+			<label th:for="examTitle">Tytuł egzaminu</label>
+			<input style="width: 100%" type="text" th:field="*{examTitle}" id="examTitle" placeholder="Tytuł egzaminu nie mniej niż 10 znaków nie więcej niż 50.">
+			<p th:if="${#fields.hasErrors('examTitle')}" th:errors="*{examTitle}"></p>
+		</div>
+		<div class="form-group">
+			<label th:for="durationInMinutes">Czas trwania w minutach</label>
+			<input style="width: 100%" type="text" th:field="*{durationInMinutes}" id="durationInMinutes" placeholder="Minimalny czas trwania egzaminu to 1 minuta maksymalny to 600 minut.">
+			<p th:if="${#fields.hasErrors('durationInMinutes')}" th:errors="*{durationInMinutes}"></p>
+		</div>
+		<div class="form-group">
+			<label th:for="threshold">Próg zaliczenia</label>
+			<input style="width: 100%" type="text" th:field="*{threshold}" id="threshold" placeholder="Próg zaliczenia musi mieścić się w przedziale 1-100.">
+			<p th:if="${#fields.hasErrors('threshold')}" th:errors="*{threshold}"></p>
+		</div>
+		<div class="custom-control custom-toggle my-2">
+			<input type="checkbox" class="custom-control-input" id="customCheck1" th:name="showPoints" th:checked="*{showPoints}">
+			<label class="custom-control-label" for="customCheck1">
+				<span class="label-text"
+				      th:text="${'Pokaż ilość punktów widocznych przy każdym pytaniu'}"></span></label>
+		</div>
+		<div class="custom-control custom-toggle my-2">
+			<input type="checkbox" class="custom-control-input" id="customCheck2" th:name="hasTimeLimit" th:checked="*{hasTimeLimit}">
+			<label class="custom-control-label" for="customCheck2">
+				<span class="label-text"
+				      th:text="${'Ogranicznie czasu'}"></span></label>
+		</div>
+		<br>
+
+
+		<button type="submit" class="btn btn-outline-dark">Zapisz</button>
+		<a class="btn btn-outline-dark" th:href="@{'/examDetails/'+${examCreator.getId()}}" role="button">Wróć</a>
+	</form>
+</div>
+</body>
+
+</html>

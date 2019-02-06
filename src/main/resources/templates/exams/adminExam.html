@@ -1,0 +1,42 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{main}">
+
+<head>
+	<title>Powodzenia</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+	<h3 style="color: red">Przejście egzaminu jako administrator, nie powoduje zapisu danych do bazy. Możesz próbować dowolną ilość razy. Jednak opuszczenie tej strony spowoduje automatyczne wylogowanie</h3>
+	<br>
+	<h2>Podsumowanie jakie zobaczyłby student poniżej</h2>
+	<br>
+	<table class="table table-dark">
+		<thead>
+		<tr>
+			<th>Tytuł egzaminu</th>
+			<th>Ocena</th>
+			<th>Wynik w %</th>
+			<th>Punkty zdobyte</th>
+			<th>Punkty max</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td th:text="${examTitle}"></td>
+			<td th:text="${grade}"></td>
+			<td th:text="${resultInPercent}"></td>
+			<td th:text="${score}"></td>
+			<td th:text="${allPoints}"></td>
+		</tr>
+		</tbody>
+		<br>
+	</table>
+	<span style="color: red" th:if="${threshold>resultInPercent}">
+				<td th:text="${currentUserName + ' Niestety, Twój wynik nie pozawala na uzyskanie pozytywnej oceny. Zgłoś się do osoby prowadzącej zajęcia.'}">
+		<br>
+	</span>
+</div>
+</body>
+
+</html>

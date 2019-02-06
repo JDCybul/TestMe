@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Opsss mamy problem</title>
+    <meta charset="utf-8">
+</head>
+<body>
+<h1>Coś poszło nie tak jak powinno.</h1>
+<h1>Wiem o problemach z walidacją</h1>
+
+<a href=/welcome>Wróć na stronę powitalną</a>
+<h1 th:text="${message}"></h1>
+<h1 th:text="${exception}"></h1>
+<h1>Zawsze możesz poczytać manual<a href="/manual"></a></h1>
+
+</body>
+</html>

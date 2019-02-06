@@ -1,0 +1,23 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{main}">
+
+<head>
+	<title>Edycja pytania</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+	<h3 th:text="${'Edytujesz pytanie: '  + question.getContent()}"></h3>
+
+	<form action="#" th:action="@{'/editQuestion/'+${question.getId()}}" th:object="${question}" method="post">
+
+		<label th:for="content">Pytanie</label>
+		<input style="width: 100%" type="text" th:field="*{content}" id="content" placeholder="Treść pytania nie mniej niż 10 znaków">
+		<span th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></span>
+		<button type="submit" class="btn btn-outline-dark">Zapisz</button>
+		<a class="btn btn-outline-dark" th:href="@{'/examDetails/'+${question.getExamCreatorId()}}" role="button">Wróć</a>
+	</form>
+</div>
+</body>
+
+</html>

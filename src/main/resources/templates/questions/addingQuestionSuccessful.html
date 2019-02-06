@@ -1,0 +1,32 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{main}">
+
+<head>
+	<title>Dodano pyanie</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+	<table class="table table-dark">
+		<tr>
+			<th>Pyytanie</th>
+			<th>Odpowiedź</th>
+			<th>Punktacja</th>
+		</tr>
+		<tr th:each="answer : ${answers}">
+			<td th:text="${question}">question</td>
+			<td><span th:if="${answer.value>0}" style="background: chartreuse" th:text="${answer.content}"></span>
+				<span th:if="${answer.value<=0}" style="background: crimson" th:text="${answer.content}"></span>
+			</td>
+			<td>
+				<span th:if="${answer.value>0}" style="background: chartreuse" th:text="${answer.value}"></span>
+				<span th:if="${answer.value<=0}" style="background: crimson" th:text="${answer.value}"></span>
+			</td>
+		</tr>
+	</table>
+	<a th:href="@{'/addQuestion/'+${examId}}" class="btn btn-outline-dark" role="button">Dodaj kolejne </a>
+	<a th:href="@{'/showAllExams/'}" class="btn btn-outline-dark" role="button">Moje egzaminy</a>
+</div>
+</body>
+
+</html>

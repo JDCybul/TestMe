@@ -1,0 +1,66 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{main}">
+
+<head>
+	<title>Oceny</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+	<h2 th:align="center" th:text="${'Wyniki dla egzaminu: '+examSummaries.get(0).getExamCreator().getExamTitle() + ' można było zdobyć '+ examSummaries.get(0).getMaxScore()}">Wyniki dla egzaminu</h2>
+	<div align="center">
+		<br>
+		<a class="btn btn-outline-dark" th:href="@{'/grades/'+${examSummaries.get(0).getExamCreator().getId()}+'/0'}">Odśwież wyniki</a>
+	</div>
+	<table class="table table-dark" th:each="indeks, i :${theyHaveNotFinishedYet}">
+		<tr>
+			<br>
+			<th th:text="${i.count+ ': '+indeks + ' nie ukończył jeszcze egzaminu'}"></th>
+		</tr>
+	</table>
+	<br>
+	<div th:each="examSummary : ${examSummaries}">
+		<table class="table table-dark">
+			<tr>
+				<td>Numer indeksu</td>
+				<td>Wynik w %</td>
+				<td>Próg</td>
+				<td>Ocena</td>
+				<td>Punkty osiągniete</td>
+				<td>Maksymalna liczba punktów</td>
+				<td>Szczegóły egzaminu</td>
+			</tr>
+			<tr>
+				<td th:text="${examSummary.userName.studentIndex}"></td>
+				<td th:text="${examSummary.resultInPercent}"></td>
+				<td th:text="${examSummary.getExamCreator().threshold}"></td>
+				<td th:text="${examSummary.grade}"></td>
+				<td th:text="${examSummary.achievedScore}"></td>
+				<td th:text="${examSummary.maxScore}"></td>
+				<td><a th:href="@{'/grades/'+${examSummary.getExamCreator().id}+'/'+${examSummary.userName.studentIndex}}">Szczegóły oceny</a></td>
+			</tr>
+			<tr th:if="${studentIndex==examSummary.userName.studentIndex}" th:each="question : ${examSummary.examCreator.questions}">
+				<td th:text="${question.content}"></td>
+				<td colspan="6">
+					<ul>
+						<li th:each="answer : ${question.answers}">
+							<span th:if="${answer.value>0 && examSummary.answers.contains(answer)}" style="background:  green" th:text="${answer.content + ' wartość punktowa :' + answer.value}"></span>
+							<span th:if="${answer.value<=0 && examSummary.answers.contains(answer)}" style="background:  red" th:text="${answer.content + ' wartość punktowa :' + answer.value}"></span>
+							<span th:if="${!examSummary.answers.contains(answer)}" style="background:  gray" th:text="${answer.content + ' wartość punktowa :' + answer.value}"></span>
+						</li>
+					</ul>
+				</td>
+
+			</tr>
+			<tfoot>
+			<tr>
+				<td colspan="7" align="Center"><a th:href="@{'/grades/'+${examSummary.getExamCreator().id+'/0'}}" class="btn btn-outline-secondary" role="button">Zamknij</a></td>
+				</td>
+			</tr>
+			</tfoot>
+		</table>
+	</div>
+</div>
+</body>
+
+</html>

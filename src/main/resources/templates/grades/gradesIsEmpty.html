@@ -1,0 +1,15 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{main}">
+
+<head>
+	<title>Brak Ocen</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+	<title>Nikt nie zdał jeszcze egzaminu </title>
+	<h1 th:text="${'Nie ma jeszcze żadnych wyników egzaminu dla egzaminu: ' + examTitle}"></h1>
+</div>
+</body>
+
+</html>

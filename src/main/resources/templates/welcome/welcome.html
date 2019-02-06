@@ -1,0 +1,79 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{main}">
+
+<body>
+<div layout:fragment="content">
+	<div th:if="${isSuperAdmin}">
+		<h2>Lista administratorów</h2>
+		<table class="table table-dark" th:each=" admin, i: ${admins}">
+			<tr>
+				<td width="10%">Numer</td>
+				<td width="20%">Index</td>
+				<td width="10%">Aktywny</td>
+				<td width="20%"> Edytuj</td>
+			</tr>
+			<tr>
+				<td th:text="${i.count}"></td>
+				<td th:text="${admin.username}"></td>
+				<td th:text="${admin.enabled}"></td>
+				<td>
+					<button class="btn btn-outline-secondary my-2 my-sm-0" type="button"><a
+							th:href="@{'/editAdmin/'+${admin.id}}">Edytuj</a></button>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div th:if="${!isEmpty}">
+		<h2 th:text="${'Witaj '+ studentIndex + ' poniżej lista egzaminów, które możesz zdać'}"></h2>
+		<h2>Powodzenia!</h2>
+		<br>
+		<table class="table table-dark" th:each=" examCreator, i: ${examCreators}">
+			<tr>
+				<td width="70%">Tytuł Egzaminu</td>
+				<td width="10%">Próg</td>
+				<td width="10%">Czas</td>
+				<td width="10%"></td>
+			</tr>
+			<tr>
+				<td th:text="${examCreator.examTitle}"></td>
+				<td th:text="${examCreator.threshold}"></td>
+				<td th:if="${examCreator.hasTimeLimit}" th:text="${examCreator.durationInMinutes}"></td>
+				<td th:if="${!examCreator.hasTimeLimit}" th:text="${'Brak Ogranicznia'}"></td>
+				<td>
+					<button class="btn btn-outline-secondary my-2 my-sm-0" type="button"><a
+							th:href="@{'/currentExam/'+${examCreator.id}}">Przystąp</a></button>
+				</td>
+			</tr>
+		</table>
+		<br>
+	</div>
+	<div th:if="${existByExamSummary}">
+		<h3>Oceny uzyskane w poprzednich egzaminach:</h3>
+		<br>
+		<table class="table table-dark" th:each="examSummary, i :${examSummaries}">
+			<thead>
+			<tr>
+				<th>Tytuł egzaminu</th>
+				<th>Ocena</th>
+				<th>Wynik w %</th>
+				<th>Próg</th>
+				<th>Punkty zdobyte</th>
+				<th>Punkty max</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td th:text="${examSummary.getExamCreator().examTitle}"></td>
+				<td th:text="${examSummary.grade}"></td>
+				<td th:text="${examSummary.resultInPercent}"></td>
+				<td th:text="${examSummary.getExamCreator().threshold}"></td>
+				<td th:text="${examSummary.achievedScore}"></td>
+				<td th:text="${examSummary.maxScore}"></td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+</body>
+
+</html>

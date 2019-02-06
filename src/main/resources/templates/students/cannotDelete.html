@@ -1,0 +1,25 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{main}">
+
+<head>
+	<title>Nie możesz</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+	<div th:if="${examCreatorId != null}" align="center">
+		<span th:text="${'Nie możez etydować/usuwać studenta ' + studentIndex + ' ponieważ zdał już egzamin: ' + examTitle+'.'}"></span>
+		<br>
+		<br>
+		<a class="btn btn-outline-dark" th:href="@{'/listAllStudents/'+${examCreatorId}}" role="button">Wróć</a>
+	</div>
+	<div th:if="${examCreatorId == null}" align="center">
+		<span th:text="${'Nie możez etydować/usuwać studenta ' + studentIndex + ' ponieważ zdał już co najmniej jeden egzmain.'}"></span>
+		<br>
+		<br>
+		<a class="btn btn-outline-dark" th:href="@{'/showAllExams/'}" role="button">Wróć</a>
+	</div>
+</div>
+</body>
+
+</html>

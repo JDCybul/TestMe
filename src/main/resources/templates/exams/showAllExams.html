@@ -1,0 +1,53 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{main}">
+
+<head>
+	<title>Wszystkie Egzaminy</title>
+</head>
+
+<body>
+
+<div layout:fragment="content">
+	<h1 align="center">Moje Egzaminy</h1>
+	<table class="table table-dark">
+
+		<thead>
+		<tr>
+			<td width="5%" align="center">Edytuj</td>
+			<td width="5%" align="center">Status</td>
+			<td width="5%" align="center">Punkty</td>
+			<td width="65%" align="center">Tytuł</td>
+			<td width="10%" align="center">Pytania</td>
+			<td width="10%" align="center">Studenci</td>
+		</tr>
+		<tr th:each=" exam, i: ${exams}">
+			<td th:if="${exam.canEdit}"><a class="btn btn-outline-warning" th:href="@{'/editExam/'+${exam.id}}" role="button">Edytuj</a></td>
+			<td th:if="${!exam.canEdit}"><a class="btn btn-outline-warning disabled" role="button" aria-disabled="true" th:href="@{'/editExam/'+${exam.id}}">Edytuj</a></td>
+			<td align="center" th:if="${exam.active}"><a class="btn btn-outline-warning" th:href="@{'/deactivateExam/'+${exam.id}}" th:text="${'Aktywny'}" role="button"></a></td>
+			<td align="center" th:if="${!exam.active}"><a class="btn btn-outline-warning" th:href="@{'/activateExam/'+${exam.id}}" th:text="${'Nieaktywny'}" role="button"></a></td>
+			<td align="center" th:if="${exam.showPoints}"><a class="btn btn-outline-warning" th:href="@{'/hidePoints/'+${exam.id}}" th:text="${'Widoczne'}" role="button"></a></td>
+
+			<td align="center" th:if="${!exam.showPoints}"><a class="btn btn-outline-warning" th:href="@{'/showPoints/'+${exam.id}}" th:text="${'Niewidoczne'}" role="button"></a></td>
+			<td align="center"><a class="btn btn-outline-warning" th:href="@{'/examDetails/'+${exam.id}}" th:text="${exam.examTitle}" role="button"></a></td>
+			<td align="center"><a class="btn btn-outline-warning" th:href="@{'/addQuestion/'+${exam.id}}" role="button">Dodaj
+				pytanie</a></td>
+			<td align="center">
+				<div class="dropdown show">
+					<a class="btn btn-outline-warning dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Studenci
+					</a>
+
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+						<a class="dropdown-item" th:href="@{'/addStudents/'+${exam.id}}">Przypisz</a>
+						<a class="dropdown-item" th:href="@{'/listAllStudents/'+${exam.id}}">Przypisani</a>
+						<a class="dropdown-item" th:href="@{'/grades/'+${exam.id}+'/0'}">Wyniki</a>
+					</div>
+				</div>
+			</td>
+		</tr>
+	</table>
+	<div class="container"></div>
+</div>
+</body>
+
+</html>

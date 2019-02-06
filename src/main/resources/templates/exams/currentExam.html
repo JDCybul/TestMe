@@ -1,0 +1,95 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{main}">
+
+<head>
+
+	<title>Powodzenia</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+	<script src="/easytimer.min.js"></script>
+	<!--<script src="/tst.js"></script>-->
+
+	<h3 th:text="${'Bierzesz udział w egzaminie ' + examTitle + ' limit czas ' + hasTimeLimit}"></h3>
+	<h3 th:text="${'Pozostała liczba pytań: ' + questionAmount}"></h3>
+	<script>
+
+        let timer = new easytimer.Timer();
+        timer.start({countdown: true, startValues: {seconds: [[${secondsLeft}]]}});
+        $('#countdownExample .values').html(timer.getTimeValues().toString());
+        timer.addEventListener('secondsUpdated', function (e) {
+            $('#countdownExample').html(timer.getTimeValues().toString());
+        });
+        timer.addEventListener('targetAchieved', function (e) {
+            $('#saveAnswerToExam').click();
+        });
+	</script>
+	<div th:if="${hasTimeLimit}">
+		<div id="countdownExample"></div>
+	</div>
+
+	<div th:each="point: ${maximumPoints}">
+		<br>
+		<h3 th:text="${'Pytanie brzmi: ' + question.getContent()}"></h3>
+
+		<h3 th:if="${showPoints}"
+		    th:text="${'Maksymalna liczba punktów, jaką możesz uzyskać to: ' + maxPointsForAnswer}"></h3>
+		<form method="post" th:action="@{'/currentExam/'+${examId}}">
+			<h3>Możliwe odpowiedzi</h3>
+			<table class="table table-bordered">
+				<thead>
+				<tr>
+					<th th:if="${!question.singleAnswer}">Pytanie wielokrotnego wyboru.</th>
+					<th th:if="${question.singleAnswer}">Pytanie jednokrotnego wyboru.</th></tr>
+				</thead>
+				<tbody>
+				<tr th:each="answer: ${answers}">
+					<td>
+								<span th:if="${question.singleAnswer}">
+								<div class="custom-control custom-radio mb-3">
+								<input th:id="@{'answersIds'+${answer.id}}" type="radio" class="custom-control-input"
+								       th:name="answersIds"
+								       th:value="${answer.id}">
+								<label class="custom-control-label" th:for="@{'answersIds'+${answer.id}}">
+									<span class="label-text" th:text="${answer.content}"></span>
+								</label>
+							</div>
+								</span>
+						<span th:if="${!question.singleAnswer}">
+							<div class="custom-control custom-checkbox mb-3">
+								<input th:id="@{'answersIds'+${answer.id}}" type="checkbox" class="custom-control-input"
+								       th:name="answersIds"
+								       th:value="${answer.id}">
+								<label class="custom-control-label" th:for="@{'answersIds'+${answer.id}}">
+									<span class="label-text" th:text="${answer.content}"></span>
+								</label>
+							</div>
+						</span>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+			<div th:if="${!hasTimeLimit}">
+				<h1 th:if="${noChoosenAnswers}">PROSZĘ WYBRAĆ PRZYNAJMNIEJ 1 ODPOWIEDŹ!</h1>
+				<button type="submit" class="btn btn-outline-dark" id="saveAnswerToExam">Zapisz wybrane</button>
+			</div>
+			<div th:if="${hasTimeLimit}">
+				<div class="field">
+					<div th:if="${!outOfTime}">
+						<h1 th:if="${noChoosenAnswers}">PROSZĘ WYBRAĆ PRZYNAJMNIEJ 1 ODPOWIEDŹ!</h1>
+						<button type="submit" class="btn btn-outline-dark" id="saveAnswerToExam">Zapisz wybrane</button>
+					</div>
+					<div th:if="${outOfTime}">
+						<h3 style="color: red">Czas dobiegł końca. Proszę zgłosić się do prowadzącego zajęcia. </h3>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+</body>
+</html>
+
