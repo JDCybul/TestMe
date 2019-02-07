@@ -34,6 +34,7 @@ public class StudentsSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/start").permitAll()
+                .antMatchers("/testy").permitAll()
                 .antMatchers("/main.css").permitAll()
                 .antMatchers("/*.js").permitAll()
                 .antMatchers("/welcome/").hasAnyRole("USER", "ADMIN")

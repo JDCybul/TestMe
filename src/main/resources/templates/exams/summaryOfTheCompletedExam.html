@@ -1,17 +1,17 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{main}">
-<title>Podsumowanie Egzaminu</title>
+<title th:text="#{examSummary}"></title>
 
 <body>
 <div layout:fragment="content">
 	<table class="table table-dark">
 		<thead>
 		<tr>
-			<th>Tytuł egzaminu</th>
-			<th>Ocena</th>
-			<th>Wynik w %</th>
-			<th>Punkty zdobyte</th>
-			<th>Punkty max</th>
+			<th th:text="#{examTitle}"></th>
+			<th th:text="#{grade}"></th>
+			<th th:text="#{resultInPercent}"></th>
+			<th th:text="#{achievedScore}"></th>
+			<th th:text="#{maxPoints}"></th>
 		</tr>
 		</thead>
 		<tbody>
@@ -21,7 +21,6 @@
 			<td th:text="${resultInPercent}"></td>
 			<td th:text="${score}"></td>
 			<td th:text="${allPoints}"></td>
-
 		</tr>
 		</tbody>
 		<br>

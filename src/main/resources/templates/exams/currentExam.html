@@ -13,11 +13,11 @@
 	<script src="/easytimer.min.js"></script>
 	<!--<script src="/tst.js"></script>-->
 
-	<h3 th:text="${'Bierzesz udział w egzaminie ' + examTitle + ' limit czas ' + hasTimeLimit}"></h3>
+	<h3 th:text="${'Bierzesz udział w egzaminie ' + examTitle}"></h3>
 	<h3 th:text="${'Pozostała liczba pytań: ' + questionAmount}"></h3>
 	<script>
 
-        let timer = new easytimer.Timer();
+        var timer = new easytimer.Timer();
         timer.start({countdown: true, startValues: {seconds: [[${secondsLeft}]]}});
         $('#countdownExample .values').html(timer.getTimeValues().toString());
         timer.addEventListener('secondsUpdated', function (e) {

@@ -11,7 +11,7 @@
 		<h2>Dodaj pytanie</h2>
 		<form th:action="@{'/addQuestion/'+${examId}}" th:object="${question}" method="post">
 			<div class="form-group">
-				<label for="content">treść pytania</label>
+				<label for="content">Treść pytania</label>
 				<input type="text" class="form-control" id="content" placeholder="treść pytania minimum 10 znaków" name="content" th:field="*{content}">
 				<p th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></p>
 			</div>
@@ -32,7 +32,7 @@
 					</td>
 				</tr>
 			</table>
-			<button type="submit" class="btn btn-outline-dark">Dodaj</button>
+			<button type="submit" class="btn btn-outline-dark">Zapisz</button>
 		</form>
 	</div>
 </div>

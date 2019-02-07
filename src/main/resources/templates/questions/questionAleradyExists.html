@@ -7,7 +7,7 @@
 
 <body>
 <div layout:fragment="content">
-	<h1 th:text="${'Pytanie o treści:' +question.content + ' już istnieje'}"></h1>
+	<h1 th:text="${'Już istnieje pytanie o treści: ' +question.content }"></h1>
 	<a class="btn btn-outline-secondary" href="/showAllExams" role="button">Opracuj inne pytanie</a>
 </div>
 </body>

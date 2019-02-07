@@ -1,6 +1,8 @@
 package pl.com.testme.testme.controllers;
 
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -38,6 +40,9 @@ public class CurrentExamController {
     @Transactional
     @RequestMapping(value = "/currentExam/{examId}", method = RequestMethod.GET)
     public String getSelected(@PathVariable("examId") long examId, Model model, HttpSession session, Principal principal) {
+        Logger logger = LoggerFactory.getLogger(CurrentExamController.class);
+
+        logger.info("egzamin rozpoczął student o indeksie {}", principal.getName());
         if (!examCreatorRepository.existsByAdminIdAndId(Long.valueOf(principal.getName()), examId) && studentsRepository.existsByAuthorityAndUsername("ROLE_ADMIN", principal.getName())) {
             return "manual";
         }

@@ -45,9 +45,9 @@
 			</tr>
 			<tr>
 				<td th:text="${question.getContent()}"></td>
-				<td th:if="${!question.active}"><a th:href="@{'/activateQuestion/'+${question.getId()}}" class="btn btn-outline-warning" role="button" th:text="${'nieaktywne'}"></a>
+				<td th:if="${!question.active}"><a th:href="@{'/activateQuestion/'+${question.getId()}}" class="btn btn-outline-warning" role="button" th:text="${'Nieaktywne'}"></a>
 				</td>
-				<td th:if="${question.active}"><a th:href="@{'/deactivateQuestion/'+${question.getId()}}" class="btn btn-outline-warning" role="button" th:text="${'aktywne'}"></a>
+				<td th:if="${question.active}"><a th:href="@{'/deactivateQuestion/'+${question.getId()}}" class="btn btn-outline-warning" role="button" th:text="${'Aktywne'}"></a>
 				</td>
 				<td th:if="${question.usedInExam}"><a th:align="right" th:href="@{'/deleteQuestion/'+${question.getId()}}" class="btn btn-outline-warning disabled" role="button" aria-disabled="true">Usuń</a></td>
 				<td th:if="${question.usedInExam}"><a th:align="right" th:href="@{'/editQuestion/'+${question.getId()}}" class="btn btn-outline-warning disabled" role="button" aria-disabled="true">Edytuj</a></td>

@@ -12,7 +12,7 @@
 	<form action="#" th:action="@{'/editAdmin/'+${student.getId()}}" th:object="${student}" method="post">
 
 		<label th:for="username">Numer indeksu</label>
-		<input style="width: 1057px" type="text" th:field="*{username}" id="username" placeholder="Numer indeksu to nie mniej niż 4 znaki a nie wiecej niż 10">
+		<input style="width: 1057px" type="text" th:field="*{username}" id="username" placeholder="Numer indeksu to nie mniej niż 4 znaki a nie więcej niż 10">
 		<span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
 
 		<div class="custom-control custom-toggle my-2">

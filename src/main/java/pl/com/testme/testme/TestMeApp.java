@@ -21,7 +21,6 @@ public class TestMeApp implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-//      loader.loadDataToDB();
+//     loader.loadDataToDB();
     }
-
 }
