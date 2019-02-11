@@ -1,6 +1,7 @@
 package pl.com.testme.testme.controllers;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -11,6 +12,7 @@ import pl.com.testme.testme.model.ExamCreator;
 import pl.com.testme.testme.model.Question;
 import pl.com.testme.testme.repositories.AnswersRepository;
 import pl.com.testme.testme.repositories.ExamCreatorRepository;
+import pl.com.testme.testme.repositories.ExamSummaryRepository;
 import pl.com.testme.testme.repositories.QuestionsRepository;
 
 import javax.servlet.http.HttpSession;
@@ -19,11 +21,14 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Controller
 @AllArgsConstructor
 public class QuestionsController {
 
     private ExamCreatorRepository examCreatorRepository;
+
+    private ExamSummaryRepository examSummaryRepository;
 
     private AnswersRepository answersRepository;
 
@@ -34,6 +39,9 @@ public class QuestionsController {
         if (!examCreatorRepository.existsByAdminId(Long.valueOf(principal.getName()))
         ) {
             return "manual";
+        }
+        if (examSummaryRepository.existsByExamCreatorId(examId)){
+            return "questions/cannotAddQuestion";
         }
         Question question = new Question();
         long adminId = Long.valueOf(principal.getName());
@@ -60,7 +68,7 @@ public class QuestionsController {
         }
         if (questionsRepository.existsByContentAndExamCreatorId(question.getContent(), examId)) {
             model.addAttribute("question", question);
-            return "questions/questionAleradyExists";
+            return "questions/questionAlreadyExists";
         } else {
             ExamCreator saveQuestionToThatExam = examCreatorRepository.findById(examId)
                     .orElseThrow(() -> new IllegalArgumentException("Niepoprawne id Egzaminu: " + examId));

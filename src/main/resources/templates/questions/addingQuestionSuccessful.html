@@ -2,16 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{main}">
 
 <head>
-	<title>Dodano pyanie</title>
+	<title th:text="#{question.added}"></title>
 </head>
 
 <body>
 <div layout:fragment="content">
 	<table class="table table-dark">
 		<tr>
-			<th>Pytanie</th>
-			<th>Odpowiedź</th>
-			<th>Punktacja</th>
+			<th th:utext="#{question}"></th>
+			<th th:utext="#{answer}"></th>
+			<th th:utext="#{punctation}"></th>
 		</tr>
 		<tr th:each="answer : ${answers}">
 			<td th:text="${question}">question</td>
@@ -24,8 +24,8 @@
 			</td>
 		</tr>
 	</table>
-	<a th:href="@{'/addQuestion/'+${examId}}" class="btn btn-outline-dark" role="button">Dodaj kolejne</a>
-	<a th:href="@{'/showAllExams/'}" class="btn btn-outline-dark" role="button">Moje egzaminy</a>
+	<a th:href="@{'/addQuestion/'+${examId}}" class="btn btn-outline-dark" role="button" th:utext="#{add.next}"></a>
+	<a th:href="@{'/showAllExams/'}" class="btn btn-outline-dark" role="button" th:utext="#{my.exams}"></a>
 </div>
 </body>
 

@@ -24,10 +24,10 @@ public class ExamCreator extends BaseEntity implements Serializable {
     @ManyToMany
     private List<Student> students;
 
-    @Size(min = 5, max = 50, message = "Nazwa egzaminu to nie mniej niż 5 znaków, nie więcej niż 50")
+    @Size(min = 5, max = 50, message = "Nazwa egzaminu to nie mniej niż 5 znaków, nie więcej niż 50.")
     private String examTitle;
 
-    @Range(min = 1L, max = 100L, message = "Próg zaliczenia musi mieścić się między 1 a 100")
+    @Range(min = 1L, max = 100L, message = "Próg zaliczenia musi mieścić się między 1 a 100.")
     private float threshold;
 
     private boolean active;
@@ -42,6 +42,7 @@ public class ExamCreator extends BaseEntity implements Serializable {
 
     private boolean hasTimeLimit;
 
-    @Range(min = 1, max = 600L, message = "Czas trwania egzaminut musi mieścić się między 1 a 600 minut")
+    @Range(min = 1, max = 600L, message = "Czas trwania egzaminu musi mieścić się między 1 a 600 minut.")
+
     private int durationInMinutes;
 }

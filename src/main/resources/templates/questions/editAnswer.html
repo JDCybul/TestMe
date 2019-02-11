@@ -2,30 +2,30 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{main}">
 
 <head>
-	<title>Edycja odpowiedzi</title>
+	<title th:text="#{edit.answer}"></title>
 </head>
 
 <body>
 <div layout:fragment="content">
-	<h3 th:text="${'Edytujesz odpowiedź: '  + answer.getContent()}"></h3>
+	<h3 th:utext="#{editing.answer(${answer.content},${answer.question.content})}"></h3>
 	<br>
-	<h3 th:text="${'Dla pytania: ' + answer.getQuestion().getContent()}"></h3>
+	<h3 th:text="${'Dla pytania: ' + answer.question.content}"></h3>
 
 
-	<form th:action="@{'/editAnswer/'+${answer.getId()}}" th:object="${answer}" method="post">
+	<form th:action="@{'/editAnswer/'+${answer.id}}" th:object="${answer}" method="post">
 
-		<label th:for="content">Odpowiedź</label>
+		<label th:for="content" th:utext="#{answer}"></label>
 		<input style="width: 1027px" type="text" th:field="*{content}" id="answerContent" placeholder="Odpowiedź">
 		<br>
 		<span th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></span>
 
-		<label th:for="value">Punktacja &nbsp;&nbsp;</label>
+		<label th:for="value" th:utext="#{punctation}"> &nbsp;&nbsp;</label>
 		<input type="text" th:field="*{value}" id="value" placeholder="Punkty -9 do 9">
 		<span th:if="${#fields.hasErrors('value')}" th:errors="*{value}"></span>
 		<br>
 
-		<button type="submit" class="btn btn-outline-dark">Zapisz</button>
-		<a class="btn btn-outline-dark" th:href="@{'/examDetails/'+${answer.getQuestion().getExamCreatorId()}}" role="button">Wróć</a>
+		<button type="submit" class="btn btn-outline-dark" th:utext="#{save}"></button>
+		<a class="btn btn-outline-dark" th:href="@{'/examDetails/'+${answer.getQuestion().getExamCreatorId()}}" role="button" th:utext="#{back}"></a>
 	</form>
 </div>
 </body>

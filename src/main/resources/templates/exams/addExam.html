@@ -1,42 +1,47 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{main}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{main}">
 
 <head>
-	<title>Dodaj egzamin</title>
+	<title th:utext="#{add.exam}"></title>
 </head>
-
 <body>
-
 <div layout:fragment="content">
 	<div class="container">
-		<h2>Dodawanie Egzaminu</h2>
+		<h2 th:text="#{adding.exam}"> </h2>
 		<form action="/" th:action="@{/addExam}" th:object="${examCreator}" method="post">
 			<div class="form-group">
-				<label for="examTitle">Tytuł egzaminu</label>
-				<input type="text" class="form-control" id="examTitle" placeholder="Tytuł egzaminu" name="examTitle" th:field="*{examTitle}" />
+				<label for="examTitle" th:utext="#{exam.title}"></label>
+				<input type="text" class="form-control" id="examTitle" placeholder="Tytuł egzaminu" name="examTitle"
+				       th:field="*{examTitle}"/>
 				<p th:if="${#fields.hasErrors('examTitle')}" th:errors="*{examTitle}"></p>
 			</div>
 			<div class="form-group">
-				<label for="threshold">Próg zaliczenia</label>
-				<input type="text" class="form-control" id="threshold" placeholder="próg zaliczenia 1-100" name="threshold" th:field="*{threshold}">
+				<label for="threshold" th:text="#{threshold.table}"></label>
+				<input type="text" class="form-control" id="threshold" placeholder="Próg zaliczenia 1-100"
+				       name="threshold" th:field="*{threshold}">
 				<p th:if="${#fields.hasErrors('threshold')}" th:errors="*{threshold}"></p>
 			</div>
 			<div class="form-group">
 				<label for="threshold">Czas trwania</label>
-				<input type="text" class="form-control" id="threshold" placeholder="Czas trwania musi mieścić się w przedziale 1 a 999" name="threshold" th:field="*{durationInMinutes}">
+				<input type="text" class="form-control" id="threshold"
+				       placeholder="Czas trwania musi mieścić się w przedziale 1 a 999 minut" name="threshold"
+				       th:field="*{durationInMinutes}">
 				<p th:if="${#fields.hasErrors('durationInMinutes')}" th:errors="*{durationInMinutes}"></p>
 			</div>
 			<div class="custom-control custom-toggle my-2">
-				<input type="checkbox" class="custom-control-input" id="customCheck1" th:name="showPoints" th:checked="*{showPoints}">
+				<input type="checkbox" class="custom-control-input" id="customCheck1" th:name="showPoints"
+				       th:checked="*{showPoints}">
 				<label class="custom-control-label" for="customCheck1"><span class="label-text"
-				                                                             th:text="${'Pokaż ilosć punktów widocznych przy każdym pytaniu'}"></span></label>
+				                                                             th:utext="#{show.points}"></span></label>
 			</div>
 			<div class="custom-control custom-toggle my-2">
-				<input type="checkbox" class="custom-control-input" id="timeLimit" th:name="hasTimeLimit" th:checked="*{hasTimeLimit}">
+				<input type="checkbox" class="custom-control-input" id="timeLimit" th:name="hasTimeLimit"
+				       th:checked="*{hasTimeLimit}">
 				<label class="custom-control-label" for="timeLimit"><span class="label-text"
-				                                                          th:text="${'Ogranicza czas na zdanie egzaminu'}"></span></label>
+				                                                          th:utext="#{time.limit}"></span></label>
 			</div>
-			<button type="submit" class="btn btn-outline-dark">Dodaj Egzamin</button>
+			<button type="submit" class="btn btn-outline-dark" th:text="#{add.exam}"></button>
 		</form>
 	</div>
 </div>

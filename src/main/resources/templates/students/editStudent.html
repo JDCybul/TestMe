@@ -2,16 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{main}">
 
 <head>
-	<title>Edycja studenta</title>
+	<title th:utext="#{edit.student}"></title>
 </head>
 
 <body>
 <div layout:fragment="content">
 
 
-	<form action="#" th:action="@{'/editStudent/'+${student.getId()}}" th:object="${student}" method="post">
+	<form action="#" th:action="@{'/editStudent/'+${student.id()}}" th:object="${student}" method="post">
 
-		<label th:for="username">Numer indeksu</label>
+		<label th:for="username" th:utext="#{index.number}"></label>
 		<input style="width: 1057px" type="text" th:field="*{username}" id="username" placeholder="Numer indeksu to nie mniej niż 4 znaki a nie wiecej niż 10">
 		<span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
 
@@ -19,9 +19,9 @@
 			<input type="checkbox" class="custom-control-input" id="enabled" th:name="enabled" th:checked="*{enabled}">
 			<label class="custom-control-label" for="enabled">
 				<span class="label-text"
-				      th:text="${'Aktywny'}"></span></label>
+				     th:utext="#{active}"></span></label>
 		</div>
-		<button type="submit" class="btn btn-outline-dark">Zapisz</button>
+		<button type="submit" class="btn btn-outline-dark" th:utext="#{save}"></button>
 	</form>
 </div>
 </body>

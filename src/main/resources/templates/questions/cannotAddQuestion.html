@@ -2,13 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{main}">
 
 <head>
-	<title>Pytanie już istnieje</title>
+	<title th:utext="#{cannot.add.question}"></title>
 </head>
 
 <body>
 <div layout:fragment="content">
-	<h1 th:text="${'Już istnieje pytanie o treści: ' +question.content }"></h1>
-	<a class="btn btn-outline-secondary" href="/showAllExams" role="button">Opracuj inne pytanie</a>
+
+	<h3 th:utext="#{cannot.add.question}"></h3>
+	<a class="btn btn-outline-secondary" href="/showAllExams" role="button" th:utext="#{back}"></a>
 </div>
 </body>
 

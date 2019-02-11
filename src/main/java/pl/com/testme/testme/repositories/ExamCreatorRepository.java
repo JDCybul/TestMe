@@ -46,4 +46,5 @@ public interface ExamCreatorRepository extends CrudRepository<ExamCreator, Long>
     Boolean existsByAdminId(@Param("adminId") Long adminId);
 
     ExamCreator findByQuestionsId(@Param("questionId")Long id);
+
 }

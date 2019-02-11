@@ -2,34 +2,31 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{main}">
 
 <head>
-	<title>Powodzenia</title>
+	<title th:utext="#{goodluck}"></title>
 </head>
 
 <body>
 <div layout:fragment="content">
 	<div align="center">
-		<p>
-			Witamy w aplikacji TestMe, umożliwiającej przystąpienie do wybranych egzaminów i kolokwiów. Zalogowanie się jest możliwe przy użyciu swojego numeru indeksu (login) oraz hasła udostępnionego przez prowadzącego zajęcia. Logując się i przystępując do egzaminu akceptujesz regulamin aplikacji.</p>
+		<p th:utext="#{start.msg}">
+			</p>
 		<br>
 		<br>
 		<br>
-		<h1>Regulamin:</h1>
-		TestMe jest aplikacją służącą do sprawdzania stanu wiedzy Studentów, umożliwia im podejście wyłącznie do tych egzaminów, do których zostali przypisani (numer indeksu) przez prowadzących zajęcia.
+		<h1 th:utext="#{regulations}"></h1>
+		<h3 align="center" th:utext="#{about.app}"></h3>
 		<div align="left">
 			<ol>
-				<li>Korzystanie z aplikacji TestMe nie wymaga ponoszenia kosztów przez Studentów.</li>
-				<li>Użytkownicy logując się i przystępując do egzaminu akceptują regulamin aplikacji.</li>
-				<li>Studenci, logując się za pomocą numeru indeksu, uwierzytelniają się w aplikacji i oświadczają, że podchodzą do egzaminu wyłącznie w swoim imieniu. Dozwolone jest korzystanie jedynie z własnego numeru indeksu.
-				</li>
-				<li>Użytkownicy, podchodząc do egzaminu, wyrażają zgodę na sprawdzenie swojej wiedzy oraz przetwarzanie wyników egzaminu w zakresie niezbędnym do dokonania oceny przez prowadzącego zajęcia.
-				</li>
-				<li>Użytkownikom przysługuje wgląd w udzielone przez siebie odpowiedzi. W celu jego uzyskania, są oni zobowiązani do zgłoszenia się do osoby prowadzącej przedmiot, którego dotyczył egzamin.
-				</li>
-				<li>Prowadzący zobowiązują się do zachowania zasad poufności. Nie będą udzielali informacji związanych z przeprowadzonymi egzaminami osobom postronnym.
-				</li>
+				<li th:utext="#{point1}"></li>
+				<li th:utext="#{point2}"></li>
+				<li th:utext="#{point3}"></li>
+				<li th:utext="#{point4}"></li>
+				<li th:utext="#{point5}"></li>
+				<li th:utext="#{point6}"></li>
+
 			</ol>
 		</div>
-		<a class="btn btn-outline-secondary" href="/welcome" role="button">Zaloguj</a>
+		<a class="btn btn-outline-secondary" href="/welcome" role="button" th:utext="#{login}"></a>
 	</div>
 </div>
 </body>

@@ -18,7 +18,7 @@ public class Answer extends BaseEntity {
     @JoinColumn(name = "question_id", referencedColumnName = "id")
     private Question question;
 
-    @Size(min = 3, max = 500, message = "odpowiedź ma mieć minimum 3 znaki, maximum 500")
+    @Size(min = 3, max = 500, message = "Odpowiedź ma mieć minimum 3 znaki, maximum 500")
     private String content;
 
     @Digits(integer = 1, fraction = 0, message = "Minimalna wartość odpowiedzi to -9 a maksymalna 9")

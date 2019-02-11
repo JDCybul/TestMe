@@ -6,19 +6,18 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<link th:href="@{main.css}" rel="stylesheet" type="text/css">
-	<title>RTFM</title>
+	<title th:text="#{rtfm}"></title>
 </head>
-
 <body>
-<h1> Drogi Adminie... to kilka zasad, których przestrzeganie pozowli uniknać problemów podczas pracy z aplikacją. </h1>
-<p>Cała logika podporządkowana jest pod egzamin. To do niego, przypisujesz pytania i odpowiedzi, dodajesz/usuwasz studentów, spradzasz ich wyniki. Miej na uwadze, że nie da sie aktywować egzaminu, jeźli nie ma w nim pytań.</p>
-<p>Jeżeli pojawi się błąd, najczęściej wystarczy cofnąc się na poprzednia stronę. Może był to błąd walidacji. </p>
-<p>Nie da się usunąć/edytować pytania jeżeli zostało juz użyte w jakimś egzaminie.</p>
-<p>Nie da sie usunąć Studenta/edytować, jeżeli zdał już jakiś egzamin. </p>
-<p>Nie da sie edytować egzaminu, jeżeli zdał już go jakiś student.</p>
-<p>Nie można usunać pytania, którego się nie dodało.</p>
-<p>Nie powinno być możliwości usuwania/dodawania/aktywowania/deaktywowania/(pytań, odpowiedzi, studentów), sprawdzania wyników/przechodzenia nie swoich egzaminów i studentów. Jeżeli trafisz na coś takiego, to muszę to asap poprawić.</p>
-<p>Możesz deaktywować pytanie o ile ktoś na nie nie odpowiedział.</p>
+<h3 th:text="#{welcome.to.manual}"> </h3>
+<p th:text="#{all.logic}"></p>
+<p th:text="#{no.assigned.questions}"></p>
+<p th:text="#{validation.error.manual}"></p>
+<p th:text="#{cannot.edit.delete.if.question.was.used}"></p>
+<p th:text="#{cannot.edit.delete.if.student.passed.exam}"></p>
+<p th:text="#{cannot.edit.exam}"></p>
+<p th:text="#{you.cannot.delete.the.question.you.have.not.added}"></p>
+<p th:text="#{bug.warning}"></p>
+<p th:text="#{you.can.deactivate.question}"></p>
 </body>
-
 </html>

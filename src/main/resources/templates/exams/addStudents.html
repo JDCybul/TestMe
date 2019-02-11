@@ -2,27 +2,23 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{main}">
 
 <head>
-	<title>Dodaj Studentów do egzaminu</title>
+	<title th:text="#{add.students.to.exam}"> </title>
 </head>
-
 <body>
-
 <div layout:fragment="content">
 	<div class="container">
-		<h2 th:text="${'Dodawanie Studentów do egzaminu ' + exam.getExamTitle()}"></h2>
+		<h3 th:utext="#{add.students.to.exam(${exam.examTitle})}"></h3>
 		<form th:action="@{'/addStudents'}" th:object="${addStudentsDTO}" method="post" id="addStudentsForm">
-			<label>Podaj numery indexów po przecinku</label>
+			<label th:utext="#{add.index.numbers.after.comma}"></label>
 			<br>
 			<textarea rows="20" cols="80" th:field="*{indexes}" placeholder="Indeks ma mieć nie mniej niż 4 cyfry i nie więcej niż 10. Muszą być, rozdzielone przecinkami."></textarea>
 			<p th:if="${#fields.hasErrors('indexes')}" th:errors="*{indexes}"></p>
 			<input type="hidden" th:field="*{examId}">
 			<br>
-			<button type="button" id="addStudentsButton" onclick='document.getElementById("indexes").value = document.getElementById("indexes").value.replace(/[\r\n]/g, ""); document.getElementById("addStudentsForm").submit()' class="btn btn-outline-dark">Przypisz Studentów</button>
+			<button type="button" id="addStudentsButton" onclick='document.getElementById("indexes").value = document.getElementById("indexes").value.replace(/[\r\n]/g, ""); document.getElementById("addStudentsForm").submit()' class="btn btn-outline-dark" th:utext="#{add.students.button}"></button>
 			<br>
 		</form>
 	</div>
 </div>
-
 </body>
-
 </html>

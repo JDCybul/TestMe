@@ -1,6 +1,5 @@
 package pl.com.testme.testme.model;
 
-
 import lombok.*;
 import javax.persistence.Entity;
 import javax.validation.constraints.Digits;
@@ -15,13 +14,11 @@ import java.util.Objects;
 @NoArgsConstructor
 public class Student extends BaseEntity {
 
-
-
-    @Size(min = 4, max = 15, message = "Numer indexu to nie mniej niż 4 cyfry a mniej niż 15")
-    @Digits(integer = 1000, fraction = 0, message = "Numer indexu to tylko liczby. To pole nie przyjmie nic innego.")
+    @Size(min = 4, max = 15, message = "Numer indeksu to nie mniej niż 4 cyfry a mniej niż 15.")
+    @Digits(integer = 1000, fraction = 0, message = "Numer indeksu to tylko liczby. To pole nie przyjmie nic innego.")
     private String username;
 
-    @Size(min = 6, max = 128, message = "Pole ma mieć wiecej niż 6 znaków a mniej niż 128")
+    @Size(min = 6, max = 128, message = "Pole ma mieć więcej niż 6 znaków a mniej niż 128.")
     private String password;
 
     private long studentIndex;

@@ -2,15 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{main}">
 
 <head>
-	<title>Dodano egzamin</title>
+	<title th:utext="#{exam.added.title}"></title>
 </head>
 
 <body>
 <div layout:fragment="content">
-	<h1 th:text="${'Dodano egzamin '+ examTitle + ' próg zaliczenia wynosi ' + threshold+'%'}"></h1>
+	<h3 th:utext="#{exam.added.content(${examTitle},${threshold})}"></h3>
 	<br>
 	<br>
-	<a href="/showAllExams" class="btn btn-outline-dark" role="button" aria-pressed="true">Przypisz pytania</a>
+	<a href="/showAllExams" class="btn btn-outline-dark" role="button" aria-pressed="true" th:utext="#{add.question.to.exam}"></a>
 </div>
 </body>
 

@@ -2,12 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{main}">
 
 <head>
-	<title>Brak Ocen</title>
+	<title th:utext="#{grades.is.empty}"></title>
 </head>
 
 <body>
 <div layout:fragment="content">
-	<h1 th:text="${'Nie ma jeszcze żadnych wyników egzaminu dla egzaminu: ' + examTitle}"></h1>
+	<h3 th:utext="#{grades.msg(${examTitle})}"></h3>
 </div>
 </body>
 

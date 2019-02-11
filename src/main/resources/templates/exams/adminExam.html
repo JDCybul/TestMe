@@ -1,29 +1,32 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{main}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{main}">
 
 <head>
-	<title>Powodzenia</title>
+	<title th:text="#{goodluck}"></title>
 </head>
 
 <body>
 <div layout:fragment="content">
-	<h3 style="color: red">Przejście egzaminu jako administrator, nie powoduje zapisu danych do bazy. Możesz próbować dowolną ilość razy. Jednak opuszczenie tej strony spowoduje automatyczne wylogowanie</h3>
+	<h4 style="color: red" th:utext="#{admin.exam.msg}"></h4>
 	<br>
-	<h2>Podsumowanie jakie zobaczyłby student poniżej</h2>
+	<h3 th:utext="#{admin.student.view}"></h3>
 	<br>
 	<table class="table table-dark">
 		<thead>
 		<tr>
-			<th>Tytuł egzaminu</th>
-			<th>Ocena</th>
-			<th>Wynik w %</th>
-			<th>Punkty zdobyte</th>
-			<th>Punkty max</th>
+			<th th:text="#{exam.title}"></th>
+			<th th:text="#{threshold.table}"></th>
+			<th th:text="#{grade}"></th>
+			<th th:text="#{result.in.percent}"></th>
+			<th th:text="#{achieved.score}"></th>
+			<th th:text="#{max.points}"></th>
 		</tr>
 		</thead>
 		<tbody>
 		<tr>
 			<td th:text="${examTitle}"></td>
+			<td th:text="${threshold}"></td>
 			<td th:text="${grade}"></td>
 			<td th:text="${resultInPercent}"></td>
 			<td th:text="${score}"></td>
@@ -32,9 +35,9 @@
 		</tbody>
 		<br>
 	</table>
-	<span style="color: red" th:if="${threshold>resultInPercent}">
-				<td th:text="${currentUserName + ' Niestety, Twój wynik nie pozawala na uzyskanie pozytywnej oceny. Zgłoś się do osoby prowadzącej zajęcia.'}">
-		<br>
+	<br>
+	<span style="color: red" th:if="${threshold>resultInPercent}" th:utext="#{fail}">
+							<br>
 	</span>
 </div>
 </body>

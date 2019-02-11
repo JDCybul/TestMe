@@ -44,9 +44,8 @@ public class GradeController {
         for (ExamSummary examSummary : examSummaries) {
             indexesOfStudentsWhoHaveAlreadyFinished.add(examSummary.getStudentIndex());
         }
-        Set<Long> theyHaveNotFinishedYet = new HashSet<>();
         indexesOfStudentsWhoCanTakeExam.removeAll(indexesOfStudentsWhoHaveAlreadyFinished);
-        theyHaveNotFinishedYet.addAll(indexesOfStudentsWhoCanTakeExam);
+        Set<Long> theyHaveNotFinishedYet = new HashSet<>(indexesOfStudentsWhoCanTakeExam);
         model.addAttribute("theyHaveNotFinishedYet", theyHaveNotFinishedYet);
         model.addAttribute("examSummaries", examSummaries);
         model.addAttribute("howManyStudentsShouldTakeTheExam", examCreator.getStudents().size());

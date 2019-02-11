@@ -1,12 +1,12 @@
 <!doctype html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{main}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{main}">
 
 <head>
-	<title>Brak Pytań</title>
+	<title th:utext="#{no.questions.title}"></title>
 </head>
 
 <body>
-<h1>Nie można zdać egzaminu, który nie ma pytań. Zgłoś się do prowadzącego. </h1>
+<h1 style="color: red" th:utext="#{no.questions.content}"></h1>
 </body>
 
 </html>

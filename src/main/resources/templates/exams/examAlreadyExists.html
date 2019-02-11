@@ -3,8 +3,8 @@
 
 <body>
 <div layout:fragment="content">
-	<h1 th:text="${'Istnieje już egzamin o tytule: ' + examTitle}"></h1>
-	<a class="btn btn-outline-dark" href="addExam">Dodaj inny egzamin</a>
+	<h1 th:utext="#{exam.already.exists(${examTitle})}"></h1>
+	<a class="btn btn-outline-dark" href="addExam" th:utext="#{exam.alerady.exists.button}"></a>
 </div>
 </body>
 

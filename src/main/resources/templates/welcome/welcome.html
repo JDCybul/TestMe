@@ -1,19 +1,18 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{main}">
-<
-
+<head>
+	<title th:text="#{welcome}" ></title>
+</head>
 <body>
 <div layout:fragment="content">
 	<div th:if="${isSuperAdmin}">
 		<h2 th:text="#{adminList}"></h2>
 		<table class="table table-dark" th:each=" admin, i: ${admins}">
-			<h2 th:utext="#{welcome(${admin.id})}"></h2>
-			<h1 th:text="${admin.id}"></h1>
 			<tr>
-				<td width="10%">Numer</td>
-				<td width="20%">Index</td>
-				<td width="10%">Aktywny</td>
-				<td width="20%">Edytuj</td>
+				<td width="10%"th:utext="#{number}"></td>
+				<td width="20%"th:utext="#{index.number}"></td>
+				<td width="10%"th:utext="#{active}"></td>
+				<td width="20%"th:utext="#{edit}"></td>
 			</tr>
 			<tr>
 				<td th:text="${i.count}"></td>
@@ -21,55 +20,55 @@
 				<td th:text="${admin.enabled}"></td>
 				<td>
 					<button class="btn btn-outline-secondary my-2 my-sm-0" type="button"><a
-							th:href="@{'/editAdmin/'+${admin.id}}">Edytuj</a></button>
+							th:href="@{'/editAdmin/'+${admin.id}}" th:utext="#{edit.admin}"></a></button>
 				</td>
 			</tr>
 
 		</table>
 	</div>
 	<div th:if="${!isEmpty}">
-		<h2>Powodzenia!</h2>
+		<h2 th:utext="#{goodluck}"></h2>
 		<br>
 		<table class="table table-dark" th:each=" examCreator, i: ${examCreators}">
 			<tr>
-				<td width="70%">Tytuł Egzaminu</td>
-				<td width="10%">Próg</td>
-				<td width="10%">Czas</td>
+				<td width="70%" th:utext="#{exam.title}"></td>
+				<td width="10%" th:utext="#{threshold.table}">Próg</td>
+				<td width="10%" th:utext="#{time}"></td>
 				<td width="10%"></td>
 			</tr>
 			<tr>
 				<td th:text="${examCreator.examTitle}"></td>
 				<td th:text="${examCreator.threshold}"></td>
 				<td th:if="${examCreator.hasTimeLimit}" th:text="${examCreator.durationInMinutes}"></td>
-				<td th:if="${!examCreator.hasTimeLimit}" th:text="${'Brak Ogranicznia'}"></td>
+				<td th:if="${!examCreator.hasTimeLimit}" th:utext="#{no.time.limit}"></td>
 				<td>
 					<button class="btn btn-outline-secondary my-2 my-sm-0" type="button"><a
-							th:href="@{'/currentExam/'+${examCreator.id}}">Przystąp</a></button>
+							th:href="@{'/currentExam/'+${examCreator.id}}" th:utext="#{approach}"></a></button>
 				</td>
 			</tr>
 		</table>
 		<br>
 	</div>
 	<div th:if="${existByExamSummary}">
-		<h3>Oceny uzyskane w poprzednich egzaminach:</h3>
+		<h3 th:utext="#{lastest.grades}"></h3>
 		<br>
 		<table class="table table-dark" th:each="examSummary, i :${examSummaries}">
 			<thead>
 			<tr>
-				<th>Tytuł egzaminu</th>
-				<th>Ocena</th>
-				<th>Wynik w %</th>
-				<th>Próg</th>
-				<th>Punkty zdobyte</th>
-				<th>Punkty max</th>
+				<th th:utext="#{exam.title}"></th>
+				<th th:utext="#{grade}">Ocena</th>
+				<th th:utext="#{result.in.percent}"></th>
+				<th th:utext="#{threshold.table}"></th>
+				<th th:utext="#{achieved.score}"></th>
+				<th th:utext="#{max.points}"></th>
 			</tr>
 			</thead>
 			<tbody>
 			<tr>
-				<td th:text="${examSummary.getExamCreator().examTitle}"></td>
+				<td th:text="${examSummary.examCreator.examTitle}"></td>
 				<td th:text="${examSummary.grade}"></td>
 				<td th:text="${examSummary.resultInPercent}"></td>
-				<td th:text="${examSummary.getExamCreator().threshold}"></td>
+				<td th:text="${examSummary.examCreator.threshold}"></td>
 				<td th:text="${examSummary.achievedScore}"></td>
 				<td th:text="${examSummary.maxScore}"></td>
 			</tr>

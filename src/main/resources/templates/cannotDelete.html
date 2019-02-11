@@ -1,13 +1,13 @@
 <!doctype html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{main}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{main}">
 
 <head>
-	<title>Nie można usunąć</title>
+	<title th:utext="#{cannot}"></title>
 </head>
 
 <body>
 <div layout:fragment="content">
-	<p>Nie można usunać/edytować: egzaminu, pytania, odpowiedzi jeżeli były wykorzystyane. Nie można usunąć Studenta, którego się nie dodało. Nie można usunąć Studenta jeżeli zdał egzamin. Być może nie masz uprawnień, do ogladania strony na która próbujesz się dostać.</p>
+	<p th:utext="#{cannot.delete.student}"></p>
 </div>
 </body>
 

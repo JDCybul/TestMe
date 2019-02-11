@@ -1,5 +1,6 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:background="http://www.w3.org/1999/xhtml" layout:decorate="~{main}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:background="http://www.w3.org/1999/xhtml" layout:decorate="~{main}">
 
 <head>
 
@@ -12,24 +13,24 @@
 	<table border="1" width="100%" class="table-dark">
 		<thead>
 		<tr>
-			<td width="60%" align="center">Tytuł egzaminu</td>
-			<td width="10%" align="center">Próg zaliczenia</td>
-			<td width="10%" align="center">Czas trwania w minutach</td>
-			<td width="10%" align="center">Zapisanych</td>
+			<td width="60%" align="center" th:utext="#{exam.title}"></td>
+			<td width="10%" align="center" th:utext="#{threshold.table}"></td>
+			<td width="10%" align="center" th:utext="#{exam.duration}"></td>
+			<td width="10%" align="center" th:utext="#{saved}"></td>
 		</thead>
 		<tbody>
 		<tr>
 			<td align="center" th:text="${exam.examTitle}"></td>
-			<td align="center" th:text="${exam.getThreshold()}"></td>
-			<td align="center" th:if="${exam.getDurationInMinutes()<=0}" th:text="${'Brak ograniczenia.'}"></td>
-			<td align="center" th:if="${exam.getDurationInMinutes()>0}" th:text="${exam.getDurationInMinutes()}"></td>
+			<td align="center" th:text="${exam.threshold}"></td>
+			<td align="center" th:if="${!exam.hasTimeLimit}" th:utext="#{no.time.limit}"></td>
+			<td align="center" th:if="${exam.hasTimeLimit}" th:text="${exam.durationInMinutes}"></td>
 			<td align="center" th:text="${howMany}"></td>
 		</tr>
 		</tbody>
 	</table>
 	<div align="center">
 		<br>
-		<a class="btn btn-outline-dark" th:href="@{'/showAllExams/'}" role="button">Wróć</a>
+		<a class="btn btn-outline-dark" th:href="@{'/showAllExams/'}" role="button" th:utext="#{back}"></a>
 		<br>
 	</div>
 
@@ -38,39 +39,59 @@
 		<table border="1" width="100%" class="table-dark">
 			<thead>
 			<tr>
-				<td width="60%" align="center" th:text="${'Pytanie nr '+i.count}"></td>
-				<td width="10%" align="center">Aktywne</td>
-				<td width="10%" align="center">Usuń</td>
-				<td width="10%" align="center">Edytuj</td>
+				<td width="60%" align="center" th:utext="#{question.number(${i.count})}"></td>
+				<td width="10%" align="center" th:utext="#{active}"></td>
+				<td width="10%" align="center" th:utext="#{delete}"></td>
+				<td width="10%" align="center" th:utext="#{edit}"></td>
 			</tr>
 			<tr>
-				<td th:text="${question.getContent()}"></td>
-				<td th:if="${!question.active}"><a th:href="@{'/activateQuestion/'+${question.getId()}}" class="btn btn-outline-warning" role="button" th:text="${'Nieaktywne'}"></a>
+				<td th:text="${question.content}"></td>
+				<td th:if="${!question.active}"><a th:href="@{'/activateQuestion/'+${question.id}}"
+				                                   class="btn btn-outline-warning" role="button"
+				                                   th:text="#{question.inactive}"></a>
 				</td>
-				<td th:if="${question.active}"><a th:href="@{'/deactivateQuestion/'+${question.getId()}}" class="btn btn-outline-warning" role="button" th:text="${'Aktywne'}"></a>
+				<td th:if="${question.active}"><a th:href="@{'/deactivateQuestion/'+${question.id}}"
+				                                  class="btn btn-outline-warning" role="button"
+				                                  th:text="#{question.active}"></a>
 				</td>
-				<td th:if="${question.usedInExam}"><a th:align="right" th:href="@{'/deleteQuestion/'+${question.getId()}}" class="btn btn-outline-warning disabled" role="button" aria-disabled="true">Usuń</a></td>
-				<td th:if="${question.usedInExam}"><a th:align="right" th:href="@{'/editQuestion/'+${question.getId()}}" class="btn btn-outline-warning disabled" role="button" aria-disabled="true">Edytuj</a></td>
-				<td th:if="${!question.usedInExam}"><a th:align="right" th:href="@{'/deleteQuestion/'+${question.getId()}}" class="btn btn-outline-warning" role="button">Usuń</a></td>
-				<td th:if="${!question.usedInExam}"><a th:align="right" th:href="@{'/editQuestion/'+${question.getId()}}" class="btn btn-outline-warning" role="button">Edytuj</a></td>
+				<td th:if="${question.usedInExam}"><a th:align="right" th:href="@{'/deleteQuestion/'+${question.id}}"
+				                                      class="btn btn-outline-warning disabled" role="button"
+				                                      aria-disabled="true" th:utext="#{delete}"></a></td>
+				<td th:if="${question.usedInExam}"><a th:align="right" th:href="@{'/editQuestion/'+${question.id}}"
+				                                      class="btn btn-outline-warning disabled" role="button"
+				                                      aria-disabled="true" th:utext="#{edit}"></a></td>
+				<td th:if="${!question.usedInExam}"><a th:align="right" th:href="@{'/deleteQuestion/'+${question.id}}"
+				                                       class="btn btn-outline-warning" role="button"
+				                                       th:utext="#{delete}"></a></td>
+				<td th:if="${!question.usedInExam}"><a th:align="right" th:href="@{'/editQuestion/'+${question.id}}"
+				                                       class="btn btn-outline-warning" role="button"
+				                                       th:utext="#{edit}"></a></td>
 			</tr>
 			<tr>
-				<td align="center">Odpowiedzi</td>
-				<td align="center">Punkty</td>
-				<td align="center">Edytuj</td>
-				<td align="center">Usuń</td>
+				<td align="center" th:text="#{answers}"></td>
+				<td align="center" th:text="#{points}"></td>
+				<td align="center" th:text="#{edit}"></td>
+				<td align="center" th:text="#{delete}"></td>
 			</tr>
 			</thead>
 			<tbody>
-			<tr th:each="answer : ${question.getAnswers()}">
+				<tr th:each="answer : ${question.answers}">
 				<td th:text="${answer.content}" width="60%"></td>
 				<td align="center" th:text="${answer.value}"></td>
-				<td th:if="${!question.usedInExam}" width="10%"><a th:href="@{'/deleteAnswer/'+${answer.getId()}}" class="btn btn-outline-warning" role="button">Usuń</a>
+				<td th:if="${!question.usedInExam}" width="10%"><a th:href="@{'/deleteAnswer/'+${answer.id}}"
+				                                                   class="btn btn-outline-warning"
+				                                                   role="button" th:utext="#{delete}"></a>
 				</td>
-				<td th:if="${question.usedInExam}" width="10%"><a th:href="@{'/deleteAnswer/'+${answer.getId()}}" class="btn btn-outline-warning  disabled" role="button" aria-disabled="true">Usuń</a></td>
-				<td th:if="${!question.usedInExam}" width="10%"><a th:href="@{'/editAnswer/'+${answer.getId()}}" class="btn btn-outline-warning" role="button">Edytuj</a>
+				<td th:if="${question.usedInExam}" width="10%"><a th:href="@{'/deleteAnswer/'+${answer.id}}"
+				                                                  class="btn btn-outline-warning  disabled"
+				                                                  role="button" aria-disabled="true" th:utext="#{delete}"></a></td>
+				<td th:if="${!question.usedInExam}" width="10%"><a th:href="@{'/editAnswer/'+${answer.id}}"
+				                                                   class="btn btn-outline-warning"
+				                                                   role="button" th:utext="#{edit}"></a>
 				</td>
-				<td th:if="${question.usedInExam}" width="10%"><a th:href="@{'/editAnswer/'+${answer.getId()}}" class="btn btn-outline-warning disabled" role="button" aria-disabled="true">Edytuj</a></td>
+				<td th:if="${question.usedInExam}" width="10%"><a th:href="@{'/editAnswer/'+${answer.id}}"
+				                                                  class="btn btn-outline-warning disabled" role="button"
+				                                                  aria-disabled="true" th:utext="#{edit}"></a></td>
 			</tr>
 			</tbody>
 

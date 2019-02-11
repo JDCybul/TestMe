@@ -5,16 +5,14 @@
 
 <head>
 
-	<title>Powodzenia</title>
+	<title th:utext="#{goodluck}"></title>
 </head>
 <body>
 
 <div layout:fragment="content">
 	<script src="/easytimer.min.js"></script>
-	<!--<script src="/tst.js"></script>-->
-
-	<h3 th:text="${'Bierzesz udział w egzaminie ' + examTitle}"></h3>
-	<h3 th:text="${'Pozostała liczba pytań: ' + questionAmount}"></h3>
+	<h3 th:utext="#{current.exam.title(${examTitle})}"></h3>
+	<h3 th:utext="#{question.amount(${questionAmount})}"></h3>
 	<script>
 
         var timer = new easytimer.Timer();
@@ -30,20 +28,18 @@
 	<div th:if="${hasTimeLimit}">
 		<div id="countdownExample"></div>
 	</div>
-
 	<div th:each="point: ${maximumPoints}">
 		<br>
-		<h3 th:text="${'Pytanie brzmi: ' + question.getContent()}"></h3>
-
-		<h3 th:if="${showPoints}"
-		    th:text="${'Maksymalna liczba punktów, jaką możesz uzyskać to: ' + maxPointsForAnswer}"></h3>
+		<h3 th:utext="#{the.question.is(${question.content})}"></h3>
+		<h3 th:if="${showPoints}" th:utext="#{max.points.for.answer(${maxPointsForAnswer})}"></h3>
 		<form method="post" th:action="@{'/currentExam/'+${examId}}">
-			<h3>Możliwe odpowiedzi</h3>
+			<h3 th:utext="#{possible.answers}"></h3>
 			<table class="table table-bordered">
 				<thead>
 				<tr>
-					<th th:if="${!question.singleAnswer}">Pytanie wielokrotnego wyboru.</th>
-					<th th:if="${question.singleAnswer}">Pytanie jednokrotnego wyboru.</th></tr>
+					<th th:if="${!question.singleAnswer}" th:utext="#{multi.answer.question}"></th>
+					<th th:if="${question.singleAnswer}" th:utext="#{single.answer.question}"></th>
+				</tr>
 				</thead>
 				<tbody>
 				<tr th:each="answer: ${answers}">
@@ -73,17 +69,17 @@
 				</tbody>
 			</table>
 			<div th:if="${!hasTimeLimit}">
-				<h1 th:if="${noChoosenAnswers}">PROSZĘ WYBRAĆ PRZYNAJMNIEJ 1 ODPOWIEDŹ!</h1>
-				<button type="submit" class="btn btn-outline-dark" id="saveAnswerToExam">Zapisz wybrane</button>
+				<h1 th:if="${noChoosenAnswers}" th:utext="#{no.chosen.answer}"></h1>
+				<button type="submit" class="btn btn-outline-dark" id="saveAnswerToExam" th:utext="#{save.selected}"></button>
 			</div>
 			<div th:if="${hasTimeLimit}">
 				<div class="field">
 					<div th:if="${!outOfTime}">
-						<h1 th:if="${noChoosenAnswers}">PROSZĘ WYBRAĆ PRZYNAJMNIEJ 1 ODPOWIEDŹ!</h1>
-						<button type="submit" class="btn btn-outline-dark" id="saveAnswerToExam">Zapisz wybrane</button>
+						<h1 th:if="${noChoosenAnswers}" th:utext="#{no.chosen.answer}"></h1>
+						<button type="submit" class="btn btn-outline-dark" id="saveAnswerToExam" th:utext="#{save.selected}"></button>
 					</div>
 					<div th:if="${outOfTime}">
-						<h3 style="color: red">Czas dobiegł końca. Proszę zgłosić się do prowadzącego zajęcia. </h3>
+						<h3 style="color: red" th:utext="#{out.of.time}"></h3>
 					</div>
 				</div>
 			</div>

@@ -1,8 +1,10 @@
 package pl.com.testme.testme.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import javax.validation.constraints.Pattern;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class AddStudentsDTO extends BaseEntity{
 

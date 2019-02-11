@@ -2,37 +2,37 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{main}">
 
 <head>
-	<title>Dodaj pytanie</title>
+	<title th:utext="#{add.question}"></title>
 </head>
 
 <body>
 <div layout:fragment="content">
 	<div class="container">
-		<h2>Dodaj pytanie</h2>
+		<h3 th:utext="#{add.question}"></h3>
 		<form th:action="@{'/addQuestion/'+${examId}}" th:object="${question}" method="post">
 			<div class="form-group">
-				<label for="content">Treść pytania</label>
+				<label for="content" th:utext="#{question.content}"></label>
 				<input type="text" class="form-control" id="content" placeholder="treść pytania minimum 10 znaków" name="content" th:field="*{content}">
 				<p th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></p>
 			</div>
 			<div class="custom-control custom-checkbox mb-3">
 				<input type="checkbox" class="custom-control-input" id="customCheck1" th:name="singleAnswer" th:checked="*{singleAnswer}">
 				<label class="custom-control-label" for="customCheck1"><span class="label-text"
-				                                                             th:text="${'Pytanie pojedyńczego wyboru'}"></span></label>
+				                                                             th:utext="#{single.answer.question}"></span></label>
 			</div>
 			<table>
-				<tr th:each="answer, i: ${question.getAnswers()}">
-					<td>
-						<input type="text" class="form-control" id="addAnswerToSelectedQuestion" placeholder="min 3 max 500" th:value="${answer.content}" th:name="${'answers['+i.index+'].content'}">
+				<tr th:each="answer, i: ${question.answers}">
+					<td width="70%">
+						<input   type="text" class="form-control" id="addAnswerToSelectedQuestion" placeholder="min 3 max 500." th:value="${answer.content}" th:name="${'answers['+i.index+'].content'}">
 						<p th:errors="*{answers[__${i.index}__].content}"></p>
 					</td>
-					<td>
-						<input type="text" class="form-control" id="value" th:value="${answer.value}" th:name="${'answers['+i.index+'].value'}">
+					<td width="30%">
+						<input type="text" class="form-control" id="value" placeholder="Min -9 max 9." th:value="${answer.value}" th:name="${'answers['+i.index+'].value'}">
 						<p th:errors="*{answers[__${i.index}__].value}"></p>
 					</td>
 				</tr>
 			</table>
-			<button type="submit" class="btn btn-outline-dark">Zapisz</button>
+			<button type="submit" class="btn btn-outline-dark" th:utext="#{save}"></button>
 		</form>
 	</div>
 </div>

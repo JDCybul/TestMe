@@ -1,13 +1,13 @@
 <!doctype html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{main}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{main}">
 
 <body>
 
 <head>
-	<title>Limit</title>
+	<title th:utext="#{limit}" ></title>
 </head>
 <div layout:fragment="content">
-	<h1>Do egzaminu przypisano 500 pytań. Nie ma możliwości przypisania więcej. Skontaktuj się z Developerem.</h1>
+	<h1 th:utext="#{questions.limit}"></h1>
 </div>
 </body>
 

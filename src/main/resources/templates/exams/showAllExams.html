@@ -2,34 +2,38 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{main}">
 
 <head>
-	<title th:text="#{myExams}"></title>
+	<title th:text="#{my.exams}"></title>
 </head>
 
 <body>
 
 <div layout:fragment="content">
-	<h1 align="center" th:text="#{myExams}"></h1>
+	<h2 align="center" th:text="#{my.exams}"></h2>
 	<table class="table table-dark">
 
 		<thead>
 		<tr>
-			<td width="5%" align="center">Edytuj</td>
-			<td width="5%" align="center">Status</td>
-			<td width="5%" align="center">Punkty</td>
-			<td width="65%" align="center">Tytuł</td>
-			<td width="10%" align="center">Pytania</td>
-			<td width="10%" align="center">Studenci</td>
+			<td width="5%" align="center" th:text="#{edit}"></td>
+			<td width="5%" align="center" th:text="#{status}"></td>
+			<td width="5%" align="center" th:text="#{points}"></td>
+			<td width="65%" align="center" th:text="#{title}"></td>
+			<td width="10%" align="center" th:text="#{questions}"></td>
+			<td width="10%" align="center" th:text="#{students}"></td>
 		</tr>
 		<tr th:each=" exam, i: ${exams}">
-			<td th:if="${exam.canEdit}"><a class="btn btn-outline-warning" th:href="@{'/editExam/'+${exam.id}}" role="button">Edytuj</a></td>
-			<td th:if="${!exam.canEdit}"><a class="btn btn-outline-warning disabled" role="button" aria-disabled="true" th:href="@{'/editExam/'+${exam.id}}">Edytuj</a></td>
-			<td align="center" th:if="${exam.active}"><a class="btn btn-outline-warning" th:href="@{'/deactivateExam/'+${exam.id}}" th:text="${'Aktywny'}" role="button"></a></td>
-			<td align="center" th:if="${!exam.active}"><a class="btn btn-outline-warning" th:href="@{'/activateExam/'+${exam.id}}" th:text="${'Nieaktywny'}" role="button"></a></td>
-			<td align="center" th:if="${exam.showPoints}"><a class="btn btn-outline-warning" th:href="@{'/hidePoints/'+${exam.id}}" th:text="${'Widoczne'}" role="button"></a></td>
-			<td align="center" th:if="${!exam.showPoints}"><a class="btn btn-outline-warning" th:href="@{'/showPoints/'+${exam.id}}" th:text="${'Niewidoczne'}" role="button"></a></td>
+			<td th:if="${exam.canEdit}"><a class="btn btn-outline-warning" th:href="@{'/editExam/'+${exam.id}}" role="button" th:utext="#{edit}"></a></td>
+			<td th:if="${!exam.canEdit}"><a class="btn btn-outline-warning disabled" role="button" aria-disabled="true" th:href="@{'/editExam/'+${exam.id}}" th:utext="#{edit}"></a></td>
+
+			<td align="center" th:if="${exam.active}"><a class="btn btn-outline-warning" th:href="@{'/deactivateExam/'+${exam.id}}" th:utext="#{active}" role="button"></a></td>
+			<td align="center" th:if="${!exam.active}"><a class="btn btn-outline-warning" th:href="@{'/activateExam/'+${exam.id}}" th:utext="#{inactive}" role="button"></a></td>
+
+			<td align="center" th:if="${exam.showPoints}"><a class="btn btn-outline-warning" th:href="@{'/hidePoints/'+${exam.id}}" th:utext="#{visibe}" role="button"></a></td>
+			<td align="center" th:if="${!exam.showPoints}"><a class="btn btn-outline-warning" th:href="@{'/showPoints/'+${exam.id}}" th:utext="#{invisible}" role="button"></a></td>
+
+
 			<td align="center"><a class="btn btn-outline-warning" th:href="@{'/examDetails/'+${exam.id}}" th:text="${exam.examTitle}" role="button"></a></td>
-			<td align="center"><a class="btn btn-outline-warning" th:href="@{'/addQuestion/'+${exam.id}}" role="button">Dodaj
-				pytanie</a></td>
+			<td th:if="${exam.canEdit}" align="center"><a class="btn btn-outline-warning" th:href="@{'/addQuestion/'+${exam.id}}" role="button" th:utext="#{add.question}"></a></td>
+			<td th:if="${!exam.canEdit}"align="center"><a class="btn btn-outline-warning disabled" aria-disabled="true" th:href="@{'/addQuestion/'+${exam.id}}" role="button" th:utext="#{add.question}"></a></td>
 			<td align="center">
 				<div class="dropdown show">
 					<a class="btn btn-outline-warning dropdown-toggle" role="button" th:text="#{students}" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -37,9 +41,9 @@
 					</a>
 
 					<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-						<a class="dropdown-item" th:href="@{'/addStudents/'+${exam.id}}">Przypisz</a>
-						<a class="dropdown-item" th:href="@{'/listAllStudents/'+${exam.id}}">Przypisani</a>
-						<a class="dropdown-item" th:href="@{'/grades/'+${exam.id}+'/0'}">Oceny</a>
+						<a class="dropdown-item" th:href="@{'/addStudents/'+${exam.id}}" th:utext="#{assign}"></a>
+						<a class="dropdown-item" th:href="@{'/listAllStudents/'+${exam.id}}" th:utext="#{assigned}"></a>
+						<a class="dropdown-item" th:href="@{'/grades/'+${exam.id}+'/0'}" th:utext="#{grades}"></a>
 					</div>
 				</div>
 			</td>

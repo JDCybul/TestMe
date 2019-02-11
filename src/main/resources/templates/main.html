@@ -10,7 +10,7 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-	<title>Powodzenia</title>
+	<title th:text="#{goodluck}"></title>
 </head>
 
 <body>
@@ -22,22 +22,22 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
 				<li sec:authorize="hasRole('ADMIN')" class="nav-item active">
-					<a class="nav-link" href="/welcome/">Zdaj<span class="sr-only">(current)</span></a>
+					<a class="nav-link" href="/welcome/" th:utext="#{pass}"><span class="sr-only">(current)</span></a>
 				</li>
 				<li sec:authorize="hasRole('ADMIN')" class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						Egzaminy
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:utext="#{exams}">
+
 					</a>
 					<div class="dropdown-menu" aria-labelledby="egzaminy">
-						<a class="dropdown-item" href="/addExam">Dodaj Egzamin</a>
-						<a class="dropdown-item" href="/showAllExams">Moje Egzaminy</a>
+						<a class="dropdown-item" href="/addExam" th:utext="#{add.exam}"></a>
+						<a class="dropdown-item" href="/showAllExams" th:utext="#{my.exams}"></a>
 					</div>
 				</li>
 				<li sec:authorize="hasRole('ADMIN')" class="nav-item active">
-					<a class="nav-link" href="/manual">Manual<span class="sr-only">(current)</span></a>
+					<a class="nav-link" href="/manual" th:utext="#{manual}"><span class="sr-only">(current)</span></a>
 				</li>
 			</ul>
-			<button sec:authorize="hasAnyRole('ADMIN, USER')" class="btn btn-outline-secondary my-2 my-sm-0" type="button"><a sec:authorize="hasAnyRole('ADMIN, USER')" href="/logout">Logout</a></button>
+			<button sec:authorize="hasAnyRole('ADMIN, USER')" class="btn btn-outline-secondary my-2 my-sm-0" type="button"><a sec:authorize="hasAnyRole('ADMIN, USER')" href="/logout" th:utext="#{logout}">Logout</a></button>
 		</div>
 	</nav>
 	<br>

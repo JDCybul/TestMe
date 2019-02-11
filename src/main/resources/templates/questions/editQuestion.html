@@ -2,20 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{main}">
 
 <head>
-	<title>Edycja pytania</title>
+	<title th:text="#{edit.question.title}"></title>
 </head>
 
 <body>
 <div layout:fragment="content">
-	<h3 th:text="${'Edytujesz pytanie: '  + question.getContent()}"></h3>
+	<h3 th:utext="#{edit.question(${question.content})}"></h3>
 
-	<form action="#" th:action="@{'/editQuestion/'+${question.getId()}}" th:object="${question}" method="post">
+	<form action="#" th:action="@{'/editQuestion/'+${question.id}}" th:object="${question}" method="post">
 
 		<label th:for="content">Pytanie</label>
 		<input style="width: 100%" type="text" th:field="*{content}" id="content" placeholder="Treść pytania nie mniej niż 10 znaków">
 		<span th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></span>
-		<button type="submit" class="btn btn-outline-dark">Zapisz</button>
-		<a class="btn btn-outline-dark" th:href="@{'/examDetails/'+${question.getExamCreatorId()}}" role="button">Wróć</a>
+		<button type="submit" class="btn btn-outline-dark" th:utext="#{save}"></button>
+		<a class="btn btn-outline-dark" th:href="@{'/examDetails/'+${question.getExamCreatorId()}}" role="button" th:utext="#{back}"></a>
 	</form>
 </div>
 </body>
