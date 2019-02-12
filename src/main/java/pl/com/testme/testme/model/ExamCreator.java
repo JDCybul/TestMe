@@ -35,7 +35,7 @@ public class ExamCreator extends BaseEntity implements Serializable {
 
     private boolean showPoints;
 
-    private boolean canEdit = true;
+    private boolean canEdit;
 
     private boolean canActivate;
 

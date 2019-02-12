@@ -8,7 +8,6 @@ import java.util.Objects;
 
 @Entity
 @Data
-@EqualsAndHashCode(callSuper = false)
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,7 +26,7 @@ public class Student extends BaseEntity {
 
     private boolean canEdit;
 
-    private String authority = "ROLE_USER";
+    private String authority;
 
     private long adminId;
 

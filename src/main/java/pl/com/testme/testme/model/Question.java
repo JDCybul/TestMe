@@ -29,9 +29,9 @@ public class Question extends BaseEntity {
 
     private long examCreatorId;
 
-    private boolean usedInExam = false;
+    private boolean usedInExam;
 
-    private boolean active = true;
+    private boolean active;
 
     @Override
     public boolean equals(Object o) {

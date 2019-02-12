@@ -60,6 +60,7 @@ public class ExamsController {
 			model.addAttribute("examTitle", examCreator.getExamTitle());
 			model.addAttribute("threshold", examCreator.getThreshold());
 			examCreator.setAdminId(Long.valueOf(principal.getName()));
+			examCreator.setCanEdit(true);
 			examCreatorRepository.save(examCreator);
 			return "exams/addingExamSuccessful";
 		}

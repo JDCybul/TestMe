@@ -76,6 +76,8 @@ public class QuestionsController {
             question.getAnswers().forEach(answer1 -> answer1.setExamCreatorId(examId));
             question.setAdminId(Long.valueOf(principal.getName()));
             question.setExamCreatorId(saveQuestionToThatExam.getId());
+            question.setActive(true);
+            question.setUsedInExam(false);
             saveQuestionToThatExam.getQuestions().add(question);
             examCreatorRepository.save(saveQuestionToThatExam);
             model.addAttribute("question", question.getContent());

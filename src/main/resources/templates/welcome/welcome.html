@@ -8,6 +8,7 @@
 	<div th:if="${isSuperAdmin}">
 		<h2 th:text="#{adminList}"></h2>
 		<table class="table table-dark" th:each=" admin, i: ${admins}">
+			<div th:if="${!admin.username.equals('1111')}">
 			<tr>
 				<td width="10%"th:utext="#{number}"></td>
 				<td width="20%"th:utext="#{index.number}"></td>
@@ -23,7 +24,7 @@
 							th:href="@{'/editAdmin/'+${admin.id}}" th:utext="#{edit.admin}"></a></button>
 				</td>
 			</tr>
-
+			</div>
 		</table>
 	</div>
 	<div th:if="${!isEmpty}">
