@@ -38,34 +38,15 @@ public class CurrentExamController {
 	@RequestMapping(value = "/currentExam/{examId}", method = RequestMethod.GET)
 	public String getSelected(@PathVariable("examId") long examId, Model model, HttpSession session, Principal principal) {
 		log.info("egzamin rozpoczął student o indeksie {}", principal.getName());
-		if (!examCreatorRepository.existsByAdminIdAndId(Long.valueOf(principal.getName()), examId) && studentsRepository.existsByAuthorityAndUsername("ROLE_ADMIN", principal.getName())) {
-			return "manual";
-		}
 		model.addAttribute("examId", examId);
 		ExamCreator examCreator = examCreatorRepository.findById(examId)
 				.orElseThrow(() -> new IllegalArgumentException("Nie ma egzaminu o takim id" + examId));
-		if (examAlreadyPassed(principal, examCreator, model)) {
-			return "exams/examAlreadyPassed";
-		}
-		Long currentExamId = (Long) session.getAttribute("currentExamId");
-		if (currentExamId != null && !currentExamId.equals(examId)) {
-			return "exams/backToExam";
-		}
-		if (session.getAttribute("examStartTime") == null) {
-			session.setAttribute("examStartTime", LocalTime.now());
-		}
-		session.setAttribute("currentExamId", examCreator.getId());
-    	LocalTime examStartTime = (LocalTime) session.getAttribute("examStartTime");
-//		long secondsThatExamGoing = ChronoUnit.SECONDS.between(examStartTime, LocalTime.now());
-//		long examDurationInSeconds = examCreator.getDurationInMinutes() * 60;
-//		long secondsLeft = examDurationInSeconds - secondsThatExamGoing;
-//		model.addAttribute("hasTimeLimit", examCreator.isHasTimeLimit());
-//		model.addAttribute("secondsLeft", secondsLeft);
-//		model.addAttribute("outOfTime", secondsLeft == 0);
-		timeManagement(examStartTime, session, model, examCreator);
+		problemsWithExam(principal, examId, model, session, examCreator);
+		LocalTime examStartTime = (LocalTime) session.getAttribute("examStartTime");
+		examTimeDurationManagement(examStartTime, session, model, examCreator);
 		List<Question> drawQuestions = (List<Question>) session.getAttribute("drawQuestions");
 		if (drawQuestions == null) drawQuestions = shuffleQuestions(examCreator);
-		if (isLastQuestion(drawQuestions) || !haveTime(examCreator, session)) {
+		if (isLastQuestion(drawQuestions) || haveTime(examCreator, session, principal)) {
 			List<Answer> answersList = (List<Answer>) session.getAttribute("chosenAnswers");
 			resultInPercent(answersList, examId);
 			float grade = userGrade(answersList, examCreator.getThreshold(), model, resultInPercent(answersList, examId), examCreator);
@@ -90,7 +71,7 @@ public class CurrentExamController {
 	public String postAnswer(@PathVariable("examId") long examId, Model model, HttpSession session, @RequestParam(value = "answersIds", required = false)
 	@Valid Long[] answerIds, Principal principal) {
 		if (examCreatorRepository.findById(examId).isPresent()) {
-			if (!haveTime(examCreatorRepository.findById(examId).get(), session)) {
+			if (haveTime(examCreatorRepository.findById(examId).get(), session, principal)) {
 				return getSelected(examId, model, session, principal);
 			}
 		}
@@ -102,7 +83,6 @@ public class CurrentExamController {
 				.map(answerId -> answersRepository.findById(answerId).
 						get())
 				.collect(Collectors.toList());
-
 		Question question = answers.get(0).getQuestion();
 		List<Answer> chosenAnswers = (List<Answer>) session.getAttribute("chosenAnswers");
 		if (chosenAnswers == null) {
@@ -113,8 +93,8 @@ public class CurrentExamController {
 		List<Question> drawQuestions = (List<Question>) session.getAttribute("drawQuestions");
 		drawQuestions.remove(question);
 		session.setAttribute("drawQuestions", drawQuestions);
+		log.info("{} wybrał odpowiedzi o id: {} na pytanie {}", principal.getName(), answerIds, question.getContent());
 		return getSelected(examId, model, session, principal);
-
 	}
 
 	private void saveDataToExamSummary(List<Answer> answers, Principal principal, float grade, long studentIndex, long examId, float resultInPercent, int maxScore, int achievedScore, HttpSession session) {
@@ -128,6 +108,7 @@ public class CurrentExamController {
 		examSummaryRepository.save(examSummary);
 		session.removeAttribute("examStartTime");
 		session.removeAttribute("currentExamId");
+		log.info("{} ukończył egzamin z oceną {} osiągając wynik {}% ", principal.getName(), grade, resultInPercent);
 	}
 
 	private int maximumPossibleSumOfPoints(long examId) {
@@ -219,16 +200,19 @@ public class CurrentExamController {
 		model.addAttribute("resultInPercent", resultInPercent);
 	}
 
-	private boolean haveTime(ExamCreator examCreator, HttpSession session) {
-		if (examCreator.getDurationInMinutes() <= 0) {
-			return true;
-		}
+	private boolean haveTime(ExamCreator examCreator, HttpSession session, Principal principal) {
+		if (examCreator.getDurationInMinutes() <= 0) return false;
 		LocalTime examStartTime = (LocalTime) session.getAttribute("examStartTime");
 		LocalTime examEndTime = examStartTime.plusMinutes(examCreator.getDurationInMinutes());
-		return examEndTime.isAfter(LocalTime.now());
+		return !examEndTime.isAfter(LocalTime.now());
+
 	}
 
-	private void timeManagement(LocalTime localTime, HttpSession session, Model model, ExamCreator examCreator  ){
+	private void examTimeDurationManagement(LocalTime localTime, HttpSession session, Model model, ExamCreator examCreator) {
+		if (session.getAttribute("examStartTime") == null) {
+			session.setAttribute("examStartTime", LocalTime.now());
+		}
+		session.setAttribute("currentExamId", examCreator.getId());
 		LocalTime examStartTime = (LocalTime) session.getAttribute("examStartTime");
 		long secondsThatExamGoing = ChronoUnit.SECONDS.between(examStartTime, LocalTime.now());
 		long examDurationInSeconds = examCreator.getDurationInMinutes() * 60;
@@ -249,6 +233,22 @@ public class CurrentExamController {
 		Collections.shuffle(activeQuestions);
 		activeQuestions.forEach(question -> question.getAnswers().size());
 		return activeQuestions;
+	}
+
+	private String problemsWithExam(Principal principal, long examId, Model model, HttpSession session, ExamCreator examCreator) {
+		if (!examCreatorRepository.existsByAdminIdAndId(Long.valueOf(principal.getName()), examId) && studentsRepository.existsByAuthorityAndUsername("ROLE_ADMIN", principal.getName())) {
+			return "manual";
+		}
+
+		if (examAlreadyPassed(principal, examCreator, model)) {
+			return "exams/examAlreadyPassed";
+		}
+		Long currentExamId = (Long) session.getAttribute("currentExamId");
+		if (currentExamId != null && !currentExamId.equals(examId)) {
+			return "exams/backToExam";
+
+		}
+		return "";
 	}
 
 	private int questionAmount(List<Question> list) {

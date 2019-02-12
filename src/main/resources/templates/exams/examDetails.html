@@ -1,10 +1,9 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:background="http://www.w3.org/1999/xhtml" layout:decorate="~{main}">
+     layout:decorate="~{main}">
 
 <head>
-
-	<title>Szczegóły egzaminu</title>
+	<title th:text="#{exam.details}"></title>
 </head>
 
 <body>
@@ -13,7 +12,7 @@
 	<table border="1" width="100%" class="table-dark">
 		<thead>
 		<tr>
-			<td width="60%" align="center" th:utext="#{exam.title}"></td>
+			<td width="70%" align="center" th:utext="#{exam.title}"></td>
 			<td width="10%" align="center" th:utext="#{threshold.table}"></td>
 			<td width="10%" align="center" th:utext="#{exam.duration}"></td>
 			<td width="10%" align="center" th:utext="#{saved}"></td>
@@ -33,13 +32,12 @@
 		<a class="btn btn-outline-dark" th:href="@{'/showAllExams/'}" role="button" th:utext="#{back}"></a>
 		<br>
 	</div>
-
 	<br>
 	<div th:each="question, i : ${questions}">
 		<table border="1" width="100%" class="table-dark">
 			<thead>
 			<tr>
-				<td width="60%" align="center" th:utext="#{question.number(${i.count})}"></td>
+				<td width="70%" align="center" th:utext="#{question.number(${i.count})}"></td>
 				<td width="10%" align="center" th:utext="#{active}"></td>
 				<td width="10%" align="center" th:utext="#{delete}"></td>
 				<td width="10%" align="center" th:utext="#{edit}"></td>
@@ -99,5 +97,4 @@
 	</div>
 </div>
 </body>
-
 </html>

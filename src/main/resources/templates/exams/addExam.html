@@ -23,16 +23,16 @@
 				<p th:if="${#fields.hasErrors('threshold')}" th:errors="*{threshold}"></p>
 			</div>
 			<div class="form-group">
-				<label for="threshold">Czas trwania</label>
-				<input type="text" class="form-control" id="threshold"
-				       placeholder="Czas trwania musi mieścić się w przedziale 1 a 999 minut" name="threshold"
+				<label for="durationInMinutes" th:text="#{duration.in.minutes}"></label>
+				<input type="text" class="form-control" id="durationInMinutes"
+				       placeholder="Czas trwania musi mieścić się w przedziale 0 a 600 minut" name="durationInMinutes"
 				       th:field="*{durationInMinutes}">
 				<p th:if="${#fields.hasErrors('durationInMinutes')}" th:errors="*{durationInMinutes}"></p>
 			</div>
 			<div class="custom-control custom-toggle my-2">
-				<input type="checkbox" class="custom-control-input" id="customCheck1" th:name="showPoints"
+				<input type="checkbox" class="custom-control-input" id="showPoints" th:name="showPoints"
 				       th:checked="*{showPoints}">
-				<label class="custom-control-label" for="customCheck1"><span class="label-text"
+				<label class="custom-control-label" for="showPoints"><span class="label-text"
 				                                                             th:utext="#{show.points}"></span></label>
 			</div>
 			<div class="custom-control custom-toggle my-2">

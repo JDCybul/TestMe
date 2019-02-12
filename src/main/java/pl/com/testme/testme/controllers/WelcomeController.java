@@ -25,7 +25,6 @@ public class WelcomeController {
 
     @RequestMapping({"/", "/start"})
     public String start() {
-
         return "welcome/start";
     }
 

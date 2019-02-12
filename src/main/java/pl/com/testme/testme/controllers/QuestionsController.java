@@ -14,7 +14,6 @@ import pl.com.testme.testme.repositories.AnswersRepository;
 import pl.com.testme.testme.repositories.ExamCreatorRepository;
 import pl.com.testme.testme.repositories.ExamSummaryRepository;
 import pl.com.testme.testme.repositories.QuestionsRepository;
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;

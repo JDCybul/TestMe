@@ -16,7 +16,6 @@ import java.util.List;
 @AllArgsConstructor
 public class ExamCreator extends BaseEntity implements Serializable {
 
-
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "exam_id", referencedColumnName = "id")
     private List<Question> questions;
@@ -42,7 +41,6 @@ public class ExamCreator extends BaseEntity implements Serializable {
 
     private boolean hasTimeLimit;
 
-    @Range(min = 1, max = 600L, message = "Czas trwania egzaminu musi mieścić się między 1 a 600 minut.")
-
+    @Range(min = 0, max = 600L, message = "Czas trwania egzaminu musi mieścić się między 0 a 600 minut.")
     private int durationInMinutes;
 }

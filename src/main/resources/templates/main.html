@@ -1,6 +1,5 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,7 +11,6 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 	<title th:text="#{goodluck}"></title>
 </head>
-
 <body>
 <div class="container">
 	<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
@@ -26,7 +24,6 @@
 				</li>
 				<li sec:authorize="hasRole('ADMIN')" class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:utext="#{exams}">
-
 					</a>
 					<div class="dropdown-menu" aria-labelledby="egzaminy">
 						<a class="dropdown-item" href="/addExam" th:utext="#{add.exam}"></a>
@@ -37,7 +34,7 @@
 					<a class="nav-link" href="/manual" th:utext="#{manual}"><span class="sr-only">(current)</span></a>
 				</li>
 			</ul>
-			<button sec:authorize="hasAnyRole('ADMIN, USER')" class="btn btn-outline-secondary my-2 my-sm-0" type="button"><a sec:authorize="hasAnyRole('ADMIN, USER')" href="/logout" th:utext="#{logout}">Logout</a></button>
+			<button sec:authorize="hasAnyRole('ADMIN, USER')" class="btn btn-outline-secondary my-2 my-sm-0" type="button"><a sec:authorize="hasAnyRole('ADMIN, USER')" href="/logout" th:utext="#{logout}"></a></button>
 		</div>
 	</nav>
 	<br>
@@ -45,5 +42,4 @@
 	</div>
 </div>
 </body>
-
 </html>
